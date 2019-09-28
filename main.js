@@ -1,5 +1,5 @@
 import React from 'react';
-import { song, startBeeping } from './synth';
+import { stop, startBeeping } from './synth';
 
 class Main extends React.Component {
 	constructor(props) {
@@ -12,9 +12,9 @@ class Main extends React.Component {
 
 	playMusic() {
 		const play = this.state.playing;
-		startBeeping();
+		if (!play) startBeeping();
+		else stop();
 		this.setState({ playing: !play });
-		console.log(this.state);
 	}
 
 	render() {
@@ -22,7 +22,7 @@ class Main extends React.Component {
 			<div>
 				<h1>HELLO WORLD!!!</h1>
 				<button type="button" onClick={this.playMusic}>
-					play
+					{this.state.playing ? 'stop' : 'play'}
 				</button>
 			</div>
 		);
