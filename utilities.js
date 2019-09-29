@@ -1,3 +1,5 @@
+const { kick, synth } = require('./instruments');
+
 const assignPitch = {
 	0: 'D5',
 	1: 'C5',
@@ -13,13 +15,32 @@ const assignPitch = {
 	11: 'G3'
 };
 
+const assignDrumSound = {
+	0: 'D1'
+	// 1: '16n',
+	// 2: 'D1'
+};
+
 class AudioNode {
-	constructor(row, col) {
+	constructor(row, col, pitch, instrument) {
+		this.instrument = instrument;
 		this.row = row;
 		this.col = col;
 		this.status = false;
-		this.pitch = assignPitch[row];
+		this.pitch = pitch;
 	}
+}
+
+function initializeDrums(width) {
+	const output = [];
+	for (let i = 0; i < 1; ++i) {
+		output.push([]);
+		for (let j = 0; j < width; ++j) {
+			let node = new AudioNode(i, j, assignDrumSound[i], kick);
+			output[i].push(node);
+		}
+	}
+	return output;
 }
 
 function initializeGrid(height, width) {
@@ -27,11 +48,18 @@ function initializeGrid(height, width) {
 	for (let i = 0; i < height; ++i) {
 		output.push([]);
 		for (let j = 0; j < width; ++j) {
-			let node = new AudioNode(i, j);
+			let node = new AudioNode(i, j, assignPitch[i], synth);
 			output[i].push(node);
 		}
 	}
 	return output;
 }
 
-export { initializeGrid };
+function updateGrid(grid, rowToUpdate, node) {
+	return grid.map((row, idx) => {
+		if (idx === node.row) return rowToUpdate;
+		else return row;
+	});
+}
+
+export { initializeGrid, initializeDrums, updateGrid };
