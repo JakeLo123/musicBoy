@@ -2,14 +2,14 @@ import React from 'react';
 import { stop, startMusic, playNote, createAllSequences } from './synth';
 import Grid from './Grid';
 import { initializeGrid } from './utilities';
-
+let sequences;
 class Main extends React.Component {
 	constructor(props) {
 		super(props);
-		this.tempo = 80;
 		this.rows = 12;
 		this.cols = 8;
 		this.state = {
+			tempo: 60,
 			playing: false,
 			grid: initializeGrid(this.rows, this.cols)
 		};
@@ -32,16 +32,16 @@ class Main extends React.Component {
 	playMusic() {
 		const playing = this.state.playing;
 		if (!playing) {
-			createAllSequences(this.state.grid);
-			startMusic();
+			sequences = createAllSequences(this.state.grid);
+			startMusic(this.state.tempo);
 		} else {
+			sequences.forEach((sequence) => sequence.stop());
 			stop();
 		}
 		this.setState({ playing: !playing });
 	}
 
 	render() {
-		console.log(this.state.grid);
 		return (
 			<div>
 				<h1>Music 👦 Boy</h1>
