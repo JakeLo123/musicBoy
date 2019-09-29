@@ -1,4 +1,4 @@
-const { kick, synth } = require('./instruments');
+const { kick, clap, cymbal, synth } = require('./instruments');
 
 const assignPitch = {
 	0: 'D5',
@@ -16,9 +16,15 @@ const assignPitch = {
 };
 
 const assignDrumSound = {
-	0: 'D1'
-	// 1: '16n',
-	// 2: 'D1'
+	0: 'D1',
+	1: '16n',
+	2: '16n'
+};
+
+const assignInstrument = {
+	0: kick,
+	1: clap,
+	2: cymbal
 };
 
 class AudioNode {
@@ -33,10 +39,10 @@ class AudioNode {
 
 function initializeDrums(width) {
 	const output = [];
-	for (let i = 0; i < 1; ++i) {
+	for (let i = 0; i < 3; ++i) {
 		output.push([]);
 		for (let j = 0; j < width; ++j) {
-			let node = new AudioNode(i, j, assignDrumSound[i], kick);
+			let node = new AudioNode(i, j, assignDrumSound[i], assignInstrument[i]);
 			output[i].push(node);
 		}
 	}

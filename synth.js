@@ -20,12 +20,30 @@ function createSequencesSynth(rows) {
 	return sequences;
 }
 
+function createSequenceClap(rows) {
+	let sequences = rows.map((row) => {
+		let sequence = new Tone.Sequence(
+			function(time) {
+				row[0].instrument.triggerAttackRelease(time);
+			},
+			row.reduce((accum, node) => {
+				if (node.status) accum.push(node.pitch);
+				else accum.push(null);
+				return accum;
+			}, []),
+			'16n'
+		).start(0);
+		return sequence;
+	});
+	return sequences;
+}
+
 function createSequenceKick(row) {
 	let sequence = new Tone.Sequence(
 		function(time, note) {
 			kick.triggerAttackRelease(note, '32n', time);
 		},
-		row[0].reduce((accum, node) => {
+		row.reduce((accum, node) => {
 			if (node.status) accum.push(node.pitch);
 			else accum.push(null);
 			return accum;
@@ -46,8 +64,8 @@ function stop() {
 }
 
 function playNote(node) {
-	// kick.triggerAttackRelease('D1', '16n');
-	node.instrument.triggerAttackRelease(node.pitch, '16n');
+	if (node.pitch !== '16n') node.instrument.triggerAttackRelease(node.pitch, '16n');
+	else node.instrument.triggerAttackRelease(node.pitch);
 }
 
-export { stop, startMusic, createSequencesSynth, createSequenceKick, playNote };
+export { stop, startMusic, createSequencesSynth, createSequenceKick, createSequenceClap, playNote };

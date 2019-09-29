@@ -1,13 +1,14 @@
 import React from 'react';
-import { stop, startMusic, playNote, createSequencesSynth, createSequenceKick } from '../synth';
+import { stop, startMusic, playNote, createSequencesSynth, createSequenceKick, createSequenceClap } from '../synth';
 import Grid from './Grid';
 import { initializeGrid, initializeDrums, updateGrid } from '../utilities';
 
 class Main extends React.Component {
 	constructor(props) {
 		super(props);
+		this.clapSequence = [];
 		this.sequences = [];
-		this.drumSequence = [];
+		this.kickSequence = [];
 		this.rows = 12;
 		this.cols = 16;
 		this.state = {
@@ -39,11 +40,14 @@ class Main extends React.Component {
 	playMusic() {
 		const playing = this.state.playing;
 		if (!playing) {
-			this.drumSequence = createSequenceKick(this.state.drums);
+			const claps = [ this.state.drums[1], this.state.drums[2] ];
+			this.clapSequence = createSequenceClap(claps);
+			this.kickSequence = createSequenceKick(this.state.drums[0]);
 			this.sequences = createSequencesSynth(this.state.grid);
 			startMusic(this.state.tempo);
 		} else {
-			this.drumSequence.stop();
+			this.clapSequence.forEach((sequence) => sequence.stop());
+			this.kickSequence.stop();
 			this.sequences.forEach((sequence) => sequence.stop());
 			stop();
 		}
