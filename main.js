@@ -14,6 +14,16 @@ class Main extends React.Component {
 			grid: initializeGrid(this.rows, this.cols)
 		};
 		this.playMusic = this.playMusic.bind(this);
+		this.toggleCell = this.toggleCell.bind(this);
+	}
+
+	toggleCell(node) {
+		node.status = !node.status;
+		const row = this.state.grid[node.row];
+		// const updatedGrid = [ ...this.state.grid, ...row, node ];
+		// const setState = {
+		// 	grid: updatedGrid
+		// }
 	}
 
 	playMusic() {
@@ -24,14 +34,13 @@ class Main extends React.Component {
 	}
 
 	render() {
-		console.log('grid', this.state.grid[0][0]);
 		return (
 			<div>
 				<h1>Music 👦 Boy</h1>
 				<button className="button" type="button" onClick={this.playMusic}>
 					{this.state.playing ? 'stop' : 'play'}
 				</button>
-				<Grid grid={this.state.grid} rows={this.rows} cols={this.cols} />
+				<Grid toggleCell={this.toggleCell} grid={this.state.grid} rows={this.rows} cols={this.cols} />
 			</div>
 		);
 	}

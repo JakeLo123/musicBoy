@@ -3,7 +3,7 @@ import React from 'react';
 function Cell(props) {
 	return props.nodes.map((node) => {
 		const cellClassName = node.status ? 'cell on' : 'cell off';
-		return <td key={node.col} className={cellClassName} />;
+		return <td key={node.col} onClick={() => props.toggleCell(node)} className={cellClassName} />;
 	});
 }
 
@@ -16,8 +16,8 @@ class Grid extends React.Component {
 					{this.props.grid.map((row) => {
 						key += 1;
 						return (
-							<tr key={key}>
-								<Cell nodes={row} />
+							<tr className="grid-row" key={key}>
+								<Cell toggleCell={this.props.toggleCell} nodes={row} />
 							</tr>
 						);
 					})}

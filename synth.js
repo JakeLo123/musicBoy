@@ -1,13 +1,6 @@
 const Tone = require('tone');
 let counter = 0;
-const { kick, cymbal, clap } = require('./instruments');
-
-const synth = new Tone.PolySynth({
-	polyphony: 9,
-	volume: 0,
-	detune: 0,
-	voice: Tone.Synth
-}).toMaster();
+const { kick, cymbal, clap, synth } = require('./instruments');
 
 const sequence = new Tone.Sequence(
 	function(time, note) {
@@ -19,7 +12,6 @@ const sequence = new Tone.Sequence(
 
 function startMusic() {
 	Tone.Transport.bpm.value = 100;
-	console.log('clicked');
 	sequence.start(0);
 	Tone.Transport.start();
 }

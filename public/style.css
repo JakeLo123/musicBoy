@@ -6,9 +6,20 @@
 	margin: 15px;
 }
 
+table {
+	margin: 0 auto;
+	width: 50%;
+}
+
 .grid {
 	border-collapse: collapse;
 	margin: 20px;
+	display: flex;
+	flex-direction: column;
+}
+
+.grid-row {
+	flex: 1;
 }
 
 .cell {
