@@ -1,13 +1,16 @@
 const assignPitch = {
-	0: 'G3',
-	1: 'A3',
-	2: 'B3',
-	3: 'C4',
-	4: 'D4',
-	5: 'E4',
-	6: 'F#5',
-	7: 'G4',
-	8: 'A4'
+	0: 'D5',
+	1: 'C5',
+	2: 'B4',
+	3: 'A4',
+	4: 'G4',
+	5: 'F#4',
+	6: 'E4',
+	7: 'D4',
+	8: 'C4',
+	9: 'B3',
+	10: 'A3',
+	11: 'G3'
 };
 
 class AudioNode {
@@ -15,7 +18,7 @@ class AudioNode {
 		this.row = row;
 		this.col = col;
 		this.status = false;
-		this.pitch = assignPitch[this.row];
+		this.pitch = assignPitch[row];
 	}
 }
 
@@ -31,4 +34,4 @@ function initializeGrid(height, width) {
 	return output;
 }
 
-export default initializeGrid;
+export { initializeGrid };

@@ -1,13 +1,13 @@
 import React from 'react';
-import { stop, startMusic } from './synth';
+import { stop, startMusic, playNote, createAllSequences } from './synth';
 import Grid from './Grid';
-import initializeGrid from './utilities';
+import { initializeGrid } from './utilities';
 
 class Main extends React.Component {
 	constructor(props) {
 		super(props);
 		this.tempo = 80;
-		this.rows = 9;
+		this.rows = 12;
 		this.cols = 8;
 		this.state = {
 			playing: false,
@@ -19,21 +19,29 @@ class Main extends React.Component {
 
 	toggleCell(node) {
 		node.status = !node.status;
-		const row = this.state.grid[node.row];
-		// const updatedGrid = [ ...this.state.grid, ...row, node ];
-		// const setState = {
-		// 	grid: updatedGrid
-		// }
+		const grid = this.state.grid;
+		const updatedRow = this.state.grid[node.row];
+		const updatedGrid = grid.map((row, idx) => {
+			if (idx === node.row) return updatedRow;
+			else return row;
+		});
+		playNote(node);
+		this.setState({ grid: updatedGrid });
 	}
 
 	playMusic() {
 		const playing = this.state.playing;
-		if (!playing) startMusic();
-		else stop();
+		if (!playing) {
+			createAllSequences(this.state.grid);
+			startMusic();
+		} else {
+			stop();
+		}
 		this.setState({ playing: !playing });
 	}
 
 	render() {
+		console.log(this.state.grid);
 		return (
 			<div>
 				<h1>Music 👦 Boy</h1>
