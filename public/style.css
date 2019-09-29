@@ -1,10 +1,32 @@
-/* body {
-	height: 500px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-} */
-
 #main {
 	text-align: center;
+}
+
+.button {
+	margin: 15px;
+}
+
+.grid {
+	border-collapse: collapse;
+	margin: 20px;
+}
+
+.cell {
+	display: inline-block;
+	border: 1px solid black;
+	width: 30px;
+	height: 15px;
+	/* background-color: limegreen; */
+}
+
+.on {
+	background-color: black;
+}
+
+.off {
+	background-color: gainsboro;
+}
+
+.cell:hover {
+	background-color: gray;
 }
