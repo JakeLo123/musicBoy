@@ -1,5 +1,4 @@
 const Tone = require('tone');
-let counter = 0;
 const { kick, cymbal, clap, synth } = require('./instruments');
 
 function createSequencesSynth(rows) {
@@ -60,7 +59,6 @@ function startMusic(tempo) {
 
 function stop() {
 	Tone.Transport.stop();
-	// synth.releaseAll(0);
 }
 
 function playNote(node) {

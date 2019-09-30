@@ -16,15 +16,15 @@ const assignPitch = {
 };
 
 const assignDrumSound = {
-	0: 'D1',
+	0: '16n',
 	1: '16n',
-	2: '16n'
+	2: 'D1'
 };
 
 const assignInstrument = {
-	0: kick,
+	0: cymbal,
 	1: clap,
-	2: cymbal
+	2: kick
 };
 
 class AudioNode {
@@ -67,5 +67,7 @@ function updateGrid(grid, rowToUpdate, node) {
 		else return row;
 	});
 }
+
+// function animate(grid) {}
 
 export { initializeGrid, initializeDrums, updateGrid };
