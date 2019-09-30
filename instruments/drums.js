@@ -7,9 +7,9 @@ const cymbal = new Tone.MetalSynth({
 		decay: 0.1,
 		release: 0.01
 	},
-	harmonicity: 5.1,
-	modulationIndex: 32,
-	resonance: 4000,
+	harmonicity: 0.1,
+	modulationIndex: 0,
+	resonance: 6000,
 	octaves: 1.5
 }).toMaster();
 

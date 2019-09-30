@@ -1,8 +1,10 @@
-#main {
+body {
 	text-align: center;
+	background-color: #c98bb9;
 }
 
 .button {
+	background-color: #e497fa;
 	margin: 15px;
 }
 
@@ -24,6 +26,7 @@ table {
 
 #reset-btn {
 	margin-bottom: 0rem;
+	border: 1px solid #411e2a;
 }
 
 input {
@@ -43,26 +46,22 @@ input {
 
 .cell {
 	display: inline-block;
-	border: 1px solid black;
+	border: 1px solid #411e2a;
 	width: 25px;
 	height: 15px;
 }
 
-.cell .pointer {
-	background-color: lime;
-}
-
 .on {
-	background-color: black;
+	background-color: #411e2a;
 }
 
 .odd {
-	background-color: rgb(233, 233, 233);
+	background-color: #f7d4bc;
 }
 
 .even {
-	background-color: rgb(200, 200, 200);
+	background-color: #f3c5a7;
 }
 .cell:hover {
-	background-color: gray;
+	background-color: #7a364e;
 }

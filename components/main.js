@@ -2,6 +2,7 @@ import React from 'react';
 import { stop, startMusic, playNote, createSequencesSynth, createSequenceKick, createSequenceClap } from '../synth';
 import Grid from './Grid';
 import { initializeGrid, initializeDrums, updateGrid } from '../utilities';
+import { kick } from '../instruments';
 
 class Main extends React.Component {
 	constructor(props) {
@@ -10,7 +11,6 @@ class Main extends React.Component {
 		this.synthSequences = [];
 		this.kickSequence = [];
 		this.rows = 12;
-		// this.cols = 32;
 		this.state = {
 			cols: 16,
 			tempo: 60,
@@ -56,6 +56,7 @@ class Main extends React.Component {
 	}
 
 	resetGrid() {
+		kick.triggerAttackRelease('A2', '4n');
 		let cols = this.state.cols;
 		this.setState({
 			playing: false,
