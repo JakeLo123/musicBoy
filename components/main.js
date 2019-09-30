@@ -40,10 +40,10 @@ class Main extends React.Component {
 	}
 
 	toggleCell(node) {
+		if (!node.status) playNote(node);
 		node.status = !node.status;
 		const grid = this.state.grid;
 		const drums = this.state.drums;
-		playNote(node);
 		if (grid[node.row].includes(node)) {
 			const updatedRow = grid[node.row];
 			const updatedGrid = updateGrid(grid, updatedRow, node);

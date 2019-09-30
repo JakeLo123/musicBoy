@@ -68,6 +68,4 @@ function updateGrid(grid, rowToUpdate, node) {
 	});
 }
 
-// function animate(grid) {}
-
 export { initializeGrid, initializeDrums, updateGrid };

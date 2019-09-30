@@ -1,5 +1,5 @@
 const Tone = require('tone');
-const { kick, cymbal, clap, synth } = require('./instruments');
+const { kick, synth } = require('./instruments');
 
 function createSequencesSynth(rows) {
 	let sequences = rows.map((row) => {
