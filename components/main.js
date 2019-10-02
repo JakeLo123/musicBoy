@@ -4,6 +4,7 @@ import Grid from './Grid';
 import { initializeGrid, initializeDrums, updateGrid } from '../utilities';
 import { kick } from '../instruments';
 import { updateNodeAction } from '../redux/store';
+import { emitToSocketThunk } from '../redux/store';
 import { connect } from 'react-redux';
 
 class Main extends React.Component {
@@ -46,6 +47,7 @@ class Main extends React.Component {
 		if (!node.status) playNote(node);
 		node.status = !node.status;
 		this.props.handleClick(node);
+		this.props.emit(node);
 		// node.status = !node.status;
 		// const grid = this.props.grid;
 		// const drums = this.state.drums;
@@ -133,7 +135,8 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
 	return {
-		handleClick: (node) => dispatch(updateNodeAction(node))
+		handleClick: (node) => dispatch(updateNodeAction(node)),
+		emit: (node) => dispatch(emitToSocketThunk(node))
 	};
 };
 

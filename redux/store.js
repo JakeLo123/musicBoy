@@ -3,13 +3,22 @@ import { createLogger } from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { initializeGrid } from '../utilities';
+import socket from '../socketClient';
 
 const UPDATE_NODE = 'UPDATE_NODE';
+const EMIT_TO_SOCKET = 'EMIT_TO_SOCKET';
 
 export const updateNodeAction = (node) => {
 	return {
 		type: UPDATE_NODE,
 		node: node
+	};
+};
+
+export const emitToSocketThunk = (node) => {
+	return () => {
+		console.log('got to EMIT THUNK');
+		socket.emit('update-grid', node);
 	};
 };
 
