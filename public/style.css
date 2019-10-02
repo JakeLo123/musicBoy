@@ -56,11 +56,11 @@ input {
 }
 
 .odd {
-	background-color: #f7d4bc;
+	background-color: #f3dccc;
 }
 
 .even {
-	background-color: #f3c5a7;
+	background-color: #f6c19d;
 }
 .cell:hover {
 	background-color: #7a364e;

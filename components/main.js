@@ -16,7 +16,7 @@ class Main extends React.Component {
 			tempo: 60,
 			playing: false,
 			grid: initializeGrid(this.rows, 16),
-			drums: initializeDrums(16)
+			drums: initializeDrums()
 		};
 		this.toggleCell = this.toggleCell.bind(this);
 		this.setTempo = this.setTempo.bind(this);

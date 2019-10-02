@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Cell(props) {
+function Row(props) {
 	let cellShade = true;
 	let count = 0;
 	return props.nodes.map((node) => {
@@ -23,7 +23,7 @@ class Grid extends React.Component {
 						key += 1;
 						return (
 							<tr className="grid-row" key={key}>
-								<Cell toggleCell={this.props.toggleCell} nodes={row} />
+								<Row toggleCell={this.props.toggleCell} nodes={row} />
 							</tr>
 						);
 					})}
