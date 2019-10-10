@@ -14,16 +14,16 @@ class Main extends React.Component {
 		this.kickSequence = [];
 		this.rows = 12;
 		this.state = {
-			// cols: 16,
+			cols: 16,
 			tempo: 60,
-			playing: false
-			// grid: initializeGrid(this.rows, 16),
-			// drums: initializeDrums()
+			playing: false,
+			grid: initializeGrid(this.rows, 16),
+			drums: initializeDrums(16)
 		};
 		this.toggleCell = this.toggleCell.bind(this);
 		this.setTempo = this.setTempo.bind(this);
-		// this.setLength = this.setLength.bind(this);
-		// this.resetGrid = this.resetGrid.bind(this);
+		this.setLength = this.setLength.bind(this);
+		this.resetGrid = this.resetGrid.bind(this);
 		this.playMusic = this.playMusic.bind(this);
 	}
 
@@ -33,56 +33,52 @@ class Main extends React.Component {
 		});
 	}
 
-	// setLength(event) {
-	// 	this.setState({
-	// 		cols: event.target.value,
-	// 		grid: initializeGrid(this.rows, event.target.value),
-	// 		drums: initializeDrums(event.target.value)
-	// 	});
-	// }
-
-	toggleCell(node) {
-		// console.log('this was clicked...', node);
-		if (!node.status) playNote(node);
-		node.status = !node.status;
-		this.props.handleClick(node);
-		// node.status = !node.status;
-		// const grid = this.props.grid;
-		// const drums = this.state.drums;
-		// if (grid[node.row].includes(node)) {
-		// 	const updatedRow = grid[node.row];
-		// 	const updatedGrid = updateGrid(grid, updatedRow, node);
-		// 	this.setState({ grid: updatedGrid });
-		// }
-
-		// else {
-		// 	const updatedRow = drums[node.row];
-		// 	const updatedDrums = updateGrid(drums, updatedRow, node);
-		// 	this.setState({ drums: updatedDrums });
-		// }
+	setLength(event) {
+		this.setState({
+			cols: event.target.value,
+			grid: initializeGrid(this.rows, event.target.value),
+			drums: initializeDrums(event.target.value)
+		});
 	}
 
-	// resetGrid() {
-	// 	kick.triggerAttackRelease('A2', '4n');
-	// 	let cols = this.state.cols;
-	// 	this.setState({
-	// 		playing: false,
-	// 		grid: initializeGrid(this.rows, cols),
-	// 		drums: initializeDrums(cols)
-	// 	});
-	// }
+	toggleCell(node) {
+		if (!node.status) playNote(node);
+		node.status = !node.status;
+		const grid = this.state.grid;
+		const drums = this.state.drums;
+		if (grid[node.row].includes(node)) {
+			const updatedRow = grid[node.row];
+			const updatedGrid = updateGrid(grid, updatedRow, node);
+			this.setState({ grid: updatedGrid });
+			console.log('grid...', this.state.grid);
+		} else {
+			const updatedRow = drums[node.row];
+			const updatedDrums = updateGrid(drums, updatedRow, node);
+			this.setState({ drums: updatedDrums });
+		}
+	}
+
+	resetGrid() {
+		kick.triggerAttackRelease('A2', '4n');
+		let cols = this.state.cols;
+		this.setState({
+			playing: false,
+			grid: initializeGrid(this.rows, cols),
+			drums: initializeDrums(cols)
+		});
+	}
 
 	playMusic() {
 		const playing = this.state.playing;
 		if (!playing) {
-			// const claps = [ this.state.drums[0], this.state.drums[1] ];
-			// this.clapSequences = createSequenceClap(claps);
-			// this.kickSequence = createSequenceKick(this.state.drums[2]);
-			this.synthSequences = createSequencesSynth(this.props.grid);
+			const claps = [ this.state.drums[0], this.state.drums[1] ];
+			this.clapSequences = createSequenceClap(claps);
+			this.kickSequence = createSequenceKick(this.state.drums[2]);
+			this.synthSequences = createSequencesSynth(this.state.grid);
 			startMusic(this.state.tempo);
 		} else {
-			// this.clapSequences.forEach((sequence) => sequence.stop());
-			// this.kickSequence.stop();
+			this.clapSequences.forEach((sequence) => sequence.stop());
+			this.kickSequence.stop();
 			this.synthSequences.forEach((sequence) => sequence.stop());
 			stop();
 		}
@@ -97,9 +93,9 @@ class Main extends React.Component {
 					{this.state.playing ? 'stop' : 'play'}
 				</button>
 				<div className="grid-container">
-					<Grid toggleCell={this.toggleCell} grid={this.props.grid} />
-					{/* <Grid toggleCell={this.toggleCell} grid={this.props.grid} rows={this.rows} cols={this.cols} /> */}
-					{/* <Grid toggleCell={this.toggleCell} grid={this.state.drums} /> */}
+					{/* <Grid toggleCell={this.toggleCell} grid={this.props.grid} /> */}
+					<Grid toggleCell={this.toggleCell} grid={this.state.grid} rows={this.rows} cols={this.cols} />
+					<Grid toggleCell={this.toggleCell} grid={this.state.drums} />
 				</div>
 				<div className="user-controls">
 					<div>
